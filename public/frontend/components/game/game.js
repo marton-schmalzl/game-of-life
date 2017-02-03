@@ -12,20 +12,20 @@ angular.module('GameOfLife.game', ['ngRoute'])
     .controller('gameCtrl', ['$scope', '$http', '$location', '$interval', function ($scope, $http, $location, $interval) {
         var self = this;
         self.cells = [
-            {x: 0, y: 0},
             {x: 0, y: 1},
-            {x: 1, y: 1},
-            {x: 1, y: 0},
-            {x: 2, y: 2},
-            {x: 2, y: 3},
-            {x: 3, y: 2},
-            {x: 3, y: 3}
+            {x: 1, y: 2},
+            {x: 2, y: 0},
+            {x: 2, y: 1},
+            {x: 2, y: 2}
         ];
+        self.displayXmin = -15;
+        self.displayYmin = -15;
+        self.displayXmax = 15;
+        self.displayYmax = 15;
         var table = [];
-        var offsetX = 0;
-        var offsetY = 0;
+        self.offsetX = 0;
+        self.offsetY = 0;
         var draw = function () {
-            console.log(self.cells[0]);
           self.table = self.getTable(self.cells);
         };
         self.evolve = function () {
@@ -60,41 +60,34 @@ angular.module('GameOfLife.game', ['ngRoute'])
             draw();
         };
 
+        self.getHeader = function () {
+            var indecies = [];
+            var t = self.table.slice();
+            var l = t.pop();
+          for(var i = 0; i < l.length; i++){
+              indecies.push(i- self.offsetY);
+          }
+          return indecies;
+        };
+
         self.getTable = function (cells) {
-            if (!cells.length) return [];
-            var first = cells.pop();
-            console.log(first);
-            console.table(cells);
+            if (self.displayXmin < 0){
+                self.offsetX = -self.displayXmin;
+            }
+            if (self.displayYmin < 0){
+                self.offsetY = -self.displayYmin;
+            }
             var tableForm = [];
-            var minX = first.x;
-            var minY = first.y;
-            var maxX = first.x;
-            var maxY = first.y;
-            cells.forEach(function (cell) {
-                if (minX > cell.x) minX = cell.x;
-                if (minY > cell.y) minY = cell.y;
-                if (maxX < cell.x) maxX = cell.x;
-                if (maxY < cell.y) maxY = cell.y;
-            });
-            cells.push(first);
-            if (minX < 0) {
-                offsetX = -1 * minX;
-                minX += offsetX;
-                maxX += offsetX;
-            }
-            if (minY < 0) {
-                offsetY = -1 * minY;
-                minY += offsetY;
-                maxY += offsetY;
-            }
-            for (var i = minX; i <= maxX; i++) {
+            for (var i = self.displayXmin + self.offsetX; i <= self.displayXmax + self.offsetX; i++) {
                 tableForm[i] = [];
-                for (var j = minY; j <= maxY; j++) {
-                    tableForm[i][j] = {state: 0, originalX: i-offsetX, originalY: j-offsetY};
+                for (var j = self.displayYmin + self.offsetY; j <= self.displayYmax + self.offsetY; j++) {
+                    tableForm[i][j] = {state: 0, originalX: i-self.offsetX, originalY: j-self.offsetY};
                 }
             }
             cells.forEach(function (cell) {
-                tableForm[cell.x + offsetX][cell.y + offsetY] = {state: 1, originalX: cell.x, originalY: cell.y};
+                if(cell.x <= self.displayXmax && cell.y <= self.displayYmax && cell.x+ self.offsetX >= self.displayXmin && cell.y + self.offsetY>= self.displayYmin){
+                    tableForm[cell.x + self.offsetX][cell.y + self.offsetY] = {state: 1, originalX: cell.x, originalY: cell.y};
+                }
             });
             return tableForm;
 

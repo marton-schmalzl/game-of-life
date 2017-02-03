@@ -2,14 +2,35 @@
 <div data-ng-controller="gameCtrl as ctrl">
     <button ng-click="ctrl.evolve()">Evolve!</button>
     <button ng-click="ctrl.toggleRun()">Start/Stop</button>
-    <label for="interval">interval:</label>
-    <input type="number" id="interval" ng-model="ctrl.interval">
+    <label for="interval">interval:
+        <input type="number" id="interval" ng-model="ctrl.interval">
+    </label>
+    <label for="displayXmax">: displayXmax;
+        <input type="number" id="displayXmax" ng-model="ctrl.displayXmax">
+    </label>
+    <label for="displayXmin">: displayXmin;
+        <input type="number" id="displayXmin" ng-model="ctrl.displayXmin">
+    </label>
+    <label for="displayYmax">displayYmax:
+        <input type="number" id="displayYmax" ng-model="ctrl.displayYmax">
+    </label>
+    <label for="displayYmin">displayYmin:
+        <input type="number" id="displayYmin" ng-model="ctrl.displayYmin">
+    </label>
     <table align="center">
         <tbody>
+            <tr>
+                <td></td>
+                <td data-ng-repeat="num in ctrl.getHeader() track by $index">
+                    <div>{{num}}</div>
+                </td>
+            </tr>
             <tr data-ng-repeat="row in ctrl.table track by $index">
+                <td>{{$index-ctrl.offsetX}}</td>
                 <td data-ng-repeat="cell in row track by $index">
                     <div data-ng-click="ctrl.toggleCell(cell.originalX, cell.originalY)">
-                        {{cell.state}}
+                        {{cell.state?"X":"_"}}
+                        <!--({{cell.originalX}}:{{cell.originalY}})-->
                     </div>
                 </td>
             </tr>
