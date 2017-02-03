@@ -1,5 +1,6 @@
 <?php
 
+use GameOfLife\Action\EvolveAction;
 use GameOfLife\Action\HomeAction;
 
 $container = $app->getContainer();
@@ -23,4 +24,7 @@ $container['pdo'] = function ($c) {
 
 $container[GameOfLife\Action\HomeAction::class] = function ($c) {
     return new HomeAction($c->get('logger'));
+};
+$container[GameOfLife\Action\EvolveAction::class] = function ($c) {
+    return new EvolveAction($c->get('logger'));
 };

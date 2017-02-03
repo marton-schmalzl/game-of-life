@@ -41,7 +41,10 @@ final class EvolveAction
             $cells[] = new Cell($rawCell->x, $rawCell->y);
         }
         $evolvedCells = Game::evolve($cells);
-        $response = $response->withJson($evolvedCells);
+        $response = $response->withJson([
+            "result" =>$evolvedCells,
+            "original" =>$cells,
+        ]);
 
         return $response;
     }
