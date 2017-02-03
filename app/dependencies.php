@@ -1,9 +1,6 @@
 <?php
 
-use App\Factory\NoteFactory;
-use App\Repository\NoteRepository;
-use App\Action\HomeAction;
-use App\Action\NotesAction;
+use GameOfLife\Action\HomeAction;
 
 $container = $app->getContainer();
 
@@ -24,6 +21,6 @@ $container['pdo'] = function ($c) {
     return new PDO($settings['dsn'], $settings['username'], $settings['password']);
 };
 
-$container[App\Action\HomeAction::class] = function ($c) {
+$container[GameOfLife\Action\HomeAction::class] = function ($c) {
     return new HomeAction($c->get('logger'));
 };

@@ -1,7 +1,6 @@
 <?php
 
-use App\Action\HomeAction;
-use App\Action\NotesAction;
+use GameOfLife\Action\HomeAction;
 
 // Routes
 

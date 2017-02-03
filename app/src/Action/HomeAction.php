@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Action;
+namespace GameOfLife\Action;
 
 use Psr\Log\LoggerInterface;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
 /**
- * Class HomeAction.
+ * Game HomeAction.
  */
 final class HomeAction
 {
