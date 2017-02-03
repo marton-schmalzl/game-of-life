@@ -2,6 +2,8 @@
 
 namespace GameOfLife\Action;
 
+use GameOfLife\Game\Cell;
+use GameOfLife\Game\Game;
 use Psr\Log\LoggerInterface;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -33,9 +35,15 @@ final class HomeAction
      */
     public function __invoke(Request $request, Response $response, $args)
     {
-        $this->logger->info('Home page action dispatched');
+        $cells = [
+            new Cell(0,0),
+            new Cell(0,1),
+            new Cell(0,2),
+        ];
+        $evolvedCells = Game::evolve($cells);
+        $response = $response->withJson($evolvedCells);
 
-        $response = $response->withJson(array('message'=>'Hello, World!'));
+        //$response = $response->withJson(array('message'=>'Hello, World!'));
 
         return $response;
     }
