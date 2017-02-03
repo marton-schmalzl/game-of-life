@@ -2,6 +2,8 @@
 
 use GameOfLife\Action\EvolveAction;
 use GameOfLife\Action\HomeAction;
+use GameOfLife\Action\ListAction;
+use GameOfLife\Action\LoadAction;
 
 $container = $app->getContainer();
 
@@ -28,3 +30,12 @@ $container[GameOfLife\Action\HomeAction::class] = function ($c) {
 $container[GameOfLife\Action\EvolveAction::class] = function ($c) {
     return new EvolveAction($c->get('logger'));
 };
+
+$container[GameOfLife\Action\LoadAction::class] = function ($c) {
+    return new LoadAction($c->get('logger'));
+};
+
+$container[GameOfLife\Action\ListAction::class] = function ($c) {
+    return new ListAction($c->get('logger'));
+};
+
