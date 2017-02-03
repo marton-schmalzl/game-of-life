@@ -1,7 +1,7 @@
 
 <div data-ng-controller="gameCtrl as ctrl">
     <button ng-click="ctrl.evolve()">Evolve!</button>
-    <button ng-click="ctrl.toggleRun()">Start/Stop</button>
+    <button ng-click="ctrl.toggleRun()">{{ctrl.run? "Stop" : "Start"}}</button>
     <label for="interval">interval:
         <input type="number" id="interval" ng-model="ctrl.interval">
     </label>
@@ -29,14 +29,14 @@
     <table align="center" id="board">
         <tbody>
             <tr>
-                <td></td>
-                <td data-ng-repeat="num in ctrl.getHeader() track by $index">
+                <td class="top-edge"></td>
+                <td class="top-edge" data-ng-repeat="num in ctrl.getHeader()">
                     <div>{{num}}</div>
                 </td>
             </tr>
             <tr data-ng-repeat="row in ctrl.table track by $index">
-                <td>{{$index-ctrl.offsetX}}</td>
-                <td data-ng-repeat="cell in row track by $index">
+                <td class="side-edge">{{$index-ctrl.offsetX}}</td>
+                <td class="cell" data-ng-repeat="cell in row track by $index">
                     <div data-ng-click="ctrl.toggleCell(cell.originalX, cell.originalY)">
                         {{cell.state?"X":"_"}}
                         <!--({{cell.originalX}}:{{cell.originalY}})-->

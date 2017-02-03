@@ -91,23 +91,23 @@ angular.module('GameOfLife.game', ['ngRoute'])
         };
         self.table = self.getTable(self.cells);
 
-        var run = false;
+        self.run = false;
         self.interval = 1000;
         var poller = null;
         var start = function () {
-            run = true;
+            self.run = true;
             poller = $interval(function () {
                 self.evolve();
             }, self.interval);
         };
         var stop = function () {
-            run = false;
+            self.run = false;
             $interval.cancel(poller);
             poller = undefined;
         };
 
         self.toggleRun = function () {
-            if (run){
+            if (self.run){
                 stop();
             } else {
                 start();

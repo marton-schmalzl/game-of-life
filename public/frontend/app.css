@@ -1,5 +1,14 @@
 #board td {
     max-width: 15px;
     min-width: 15px;
+}
+#board .cell{
     cursor: pointer;
+}
+#board .top-edge{
+    font-size: x-small;
+}
+
+#board .side-edge{
+    font-size: x-small;
 }
