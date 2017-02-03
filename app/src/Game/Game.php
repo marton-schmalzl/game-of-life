@@ -48,6 +48,8 @@ class Game
         }
         $evolvedCells = [];
 
+        //we know the min/max values, ne cells can pop up on the edges, so we extend out by 1 in each side, when checking rules
+        //check all possibel cells, apply rules
         for ($i=$minX-1; $i<=$maxX+1; $i++){
             for ($j=$minY-1; $j<=$maxY+1; $j++){
                 $neighbours = self::countNeighbours($cells, $i, $j);
@@ -89,8 +91,8 @@ class Game
 
     /**
      * @param $cells Cell[]
-     * @param $x
-     * @param $y
+     * @param $x integer
+     * @param $y integer
      * @return bool
      */
     private static function getState($cells, $x, $y){

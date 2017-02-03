@@ -16,7 +16,7 @@ class Parser
             $result=[];
             $fileInfo = new \SplFileInfo($file);
             $handle = $fileInfo->openFile("r");
-            $handle->fgets();
+            $handle->fgets(); //skip first line
             if ($handle){
                 $row = 0;
                 $col = 0;
