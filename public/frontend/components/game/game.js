@@ -45,7 +45,12 @@ angular.module('GameOfLife.game', ['ngRoute'])
             var found = false;
             self.cells.forEach(function (cell, idx) {
                 if (cell.x == x && cell.y == y){
-                    delete self.cells[idx];
+                    var tempCells = self.cells;
+                    self.cells = [];
+                    tempCells.forEach(function (cell, idx2) {
+                      if (idx2 == idx) return;
+                      self.cells.push(cell);
+                    });
                     found = true;
                 }
             });
@@ -56,18 +61,22 @@ angular.module('GameOfLife.game', ['ngRoute'])
         };
 
         self.getTable = function (cells) {
-            if (!cells[0]) return [];
+            if (!cells.length) return [];
+            var first = cells.pop();
+            console.log(first);
+            console.table(cells);
             var tableForm = [];
-            var minX = cells[0].x;
-            var minY = cells[0].y;
-            var maxX = cells[0].x;
-            var maxY = cells[0].y;
+            var minX = first.x;
+            var minY = first.y;
+            var maxX = first.x;
+            var maxY = first.y;
             cells.forEach(function (cell) {
                 if (minX > cell.x) minX = cell.x;
                 if (minY > cell.y) minY = cell.y;
                 if (maxX < cell.x) maxX = cell.x;
                 if (maxY < cell.y) maxY = cell.y;
             });
+            cells.push(first);
             if (minX < 0) {
                 offsetX = -1 * minX;
                 minX += offsetX;
