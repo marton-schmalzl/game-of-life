@@ -120,6 +120,7 @@ angular.module('GameOfLife.game', ['ngRoute'])
             url: '/list'
         }).then(function successCallback(response) {
             self.loadables = response.data;
+            self.selectedFile = self.loadables[0];
         }, function errorCallback(response) {
 
         });
