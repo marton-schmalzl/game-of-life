@@ -9,9 +9,9 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 
 /**
- * Game HomeAction.
+ * Game EvolveAction.
  */
-final class HomeAction
+final class EvolveAction
 {
     /**
      * @var \Psr\Log\LoggerInterface
@@ -35,16 +35,13 @@ final class HomeAction
      */
     public function __invoke(Request $request, Response $response, $args)
     {
-        $cells = [
-            new Cell(0,0),
-            new Cell(0,1),
-            new Cell(0,2),
-        ];
-        //echo json_encode($cells);
+        $rawCells = $request->getQueryParam('cells', []);
+        $cells = [];
+        foreach (json_decode($rawCells) as $rawCell){
+            $cells[] = new Cell($rawCell->x, $rawCell->y);
+        }
         $evolvedCells = Game::evolve($cells);
-        $response = $response->write(json_encode($evolvedCells));
-
-        //$response = $response->withJson(array('message'=>'Hello, World!'));
+        $response = $response->withJson($evolvedCells);
 
         return $response;
     }

@@ -95,7 +95,7 @@ class Game
      */
     private static function getState($cells, $x, $y){
         foreach ($cells as $cell)
-            if ($cell->x = $x && $cell->y == $y)
+            if ($cell->x == $x && $cell->y == $y)
                 return true;
         return false;
     }

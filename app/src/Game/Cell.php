@@ -6,7 +6,7 @@ namespace GameOfLife\Game;
  *
  * Holds a live cells coordinates
  */
-class Cell
+class Cell implements \JsonSerializable
 {
     /**
      * @var integer
@@ -24,8 +24,12 @@ class Cell
      */
     public function __construct($x, $y)
     {
-        $this->x = $x;
-        $this->y = $y;
+        $this->x = (int)$x;
+        $this->y = (int)$y;
     }
 
+    function jsonSerialize()
+    {
+        return ['x'=>$this->x, 'y'=>$this->y];
+    }
 }
