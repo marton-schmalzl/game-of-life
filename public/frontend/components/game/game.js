@@ -24,6 +24,10 @@ angular.module('GameOfLife.game', ['ngRoute'])
         var table = [];
         var offsetX = 0;
         var offsetY = 0;
+        var draw = function () {
+            console.log(self.cells[0]);
+          self.table = self.getTable(self.cells);
+        };
         self.evolve = function () {
             $http({
                 method: 'GET',
@@ -31,11 +35,24 @@ angular.module('GameOfLife.game', ['ngRoute'])
                 params: {cells: JSON.stringify(self.cells)}
             }).then(function successCallback(response) {
                 self.cells = response.data.result;
-                self.table = self.getTable(response.data.result)
+                draw();
 
             }, function errorCallback(response) {
 
             });
+        };
+        self.toggleCell = function (x, y) {
+            var found = false;
+            self.cells.forEach(function (cell, idx) {
+                if (cell.x == x && cell.y == y){
+                    delete self.cells[idx];
+                    found = true;
+                }
+            });
+            if (!found){
+                self.cells.push({x:x, y:y, state:1});
+            }
+            draw();
         };
 
         self.getTable = function (cells) {
@@ -64,7 +81,7 @@ angular.module('GameOfLife.game', ['ngRoute'])
             for (var i = minX; i <= maxX; i++) {
                 tableForm[i] = [];
                 for (var j = minY; j <= maxY; j++) {
-                    tableForm[i][j] = {state: 0};
+                    tableForm[i][j] = {state: 0, originalX: i-offsetX, originalY: j-offsetY};
                 }
             }
             cells.forEach(function (cell) {
@@ -73,7 +90,7 @@ angular.module('GameOfLife.game', ['ngRoute'])
             return tableForm;
 
         };
-        self.evolve();
+        self.table = self.getTable(self.cells);
 
         var run = false;
         self.interval = 1000;

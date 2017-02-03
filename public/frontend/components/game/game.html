@@ -8,7 +8,9 @@
         <tbody>
             <tr data-ng-repeat="row in ctrl.table track by $index">
                 <td data-ng-repeat="cell in row track by $index">
-                    {{cell.state}}
+                    <div data-ng-click="ctrl.toggleCell(cell.originalX, cell.originalY)">
+                        {{cell.state}}
+                    </div>
                 </td>
             </tr>
 
