@@ -5,19 +5,28 @@
     <label for="interval">interval:
         <input type="number" id="interval" ng-model="ctrl.interval">
     </label>
+    <br>
     <label for="displayXmax">: displayXmax;
         <input type="number" id="displayXmax" ng-model="ctrl.displayXmax">
     </label>
     <label for="displayXmin">: displayXmin;
         <input type="number" id="displayXmin" ng-model="ctrl.displayXmin">
     </label>
+    <br>
     <label for="displayYmax">displayYmax:
         <input type="number" id="displayYmax" ng-model="ctrl.displayYmax">
     </label>
     <label for="displayYmin">displayYmin:
         <input type="number" id="displayYmin" ng-model="ctrl.displayYmin">
     </label>
-    <table align="center">
+    <br>
+    <label for="load">load:
+        <select id="load" data-ng-model="ctrl.selectedFile">
+            <option data-ng-repeat="loadable in ctrl.loadables" value="{{loadable}}">{{loadable}}</option>
+        </select>
+    </label>
+    <button data-ng-click="ctrl.load()">Load</button>
+    <table align="center" id="board">
         <tbody>
             <tr>
                 <td></td>

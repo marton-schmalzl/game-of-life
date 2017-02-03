@@ -29,11 +29,8 @@ angular.module('GameOfLife.game', ['ngRoute'])
           self.table = self.getTable(self.cells);
         };
         self.evolve = function () {
-            $http({
-                method: 'GET',
-                url: '/evolve',
-                params: {cells: JSON.stringify(self.cells)}
-            }).then(function successCallback(response) {
+            $http.post('/evolve',self.cells
+            ).then(function successCallback(response) {
                 self.cells = response.data.result;
                 draw();
 
@@ -115,6 +112,30 @@ angular.module('GameOfLife.game', ['ngRoute'])
             } else {
                 start();
             }
+        };
+
+        self.loadables = [];
+        $http({
+            method: 'GET',
+            url: '/list'
+        }).then(function successCallback(response) {
+            self.loadables = response.data;
+        }, function errorCallback(response) {
+
+        });
+
+        self.load = function () {
+            $http({
+                method: 'GET',
+                url: '/load',
+                params: {file: (self.selectedFile)}
+            }).then(function successCallback(response) {
+                self.cells = response.data;
+                draw();
+
+            }, function errorCallback(response) {
+
+            });
         };
         $scope.$on("$destroy", function handler() {
             stop();

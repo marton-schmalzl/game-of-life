@@ -1,0 +1,4 @@
+#board td {
+    width: 15px;
+    cursor: pointer;
+}

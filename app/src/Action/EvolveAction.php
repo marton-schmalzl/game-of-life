@@ -35,10 +35,9 @@ final class EvolveAction
      */
     public function __invoke(Request $request, Response $response, $args)
     {
-        $rawCells = $request->getQueryParam('cells', []);
         $cells = [];
-        foreach (json_decode($rawCells) as $rawCell){
-            $cells[] = new Cell($rawCell->x, $rawCell->y);
+        foreach ($request->getParsedBody() as $rawCell){
+            $cells[] = new Cell($rawCell['x'], $rawCell['y']);
         }
         $evolvedCells = Game::evolve($cells);
         $response = $response->withJson([
