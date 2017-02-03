@@ -1,0 +1,21 @@
+{
+    "name": "marton-schmalzl/game-of-life",
+    "description": "Game of life",
+    "type": "project",
+    "keywords": ["slim-framework", "rest"],
+    "authors": [
+        {
+            "name": "Márton Schmalzl",
+            "email": "marton.schmalzl@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/src"
+        }
+    },
+    "require": {
+        "slim/slim": "^3.0",
+        "monolog/monolog": "^1.13"
+    }
+}
