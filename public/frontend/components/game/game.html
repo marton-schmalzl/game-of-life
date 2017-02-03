@@ -1,0 +1,17 @@
+
+<div data-ng-controller="gameCtrl as ctrl">
+    <button ng-click="ctrl.evolve()">Evolve!</button>
+    <button ng-click="ctrl.toggleRun()">Start/Stop</button>
+    <label for="interval">interval:</label>
+    <input type="number" id="interval" ng-model="ctrl.interval">
+    <table align="center">
+        <tbody>
+            <tr data-ng-repeat="row in ctrl.table track by $index">
+                <td data-ng-repeat="cell in row track by $index">
+                    {{cell.state}}
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
